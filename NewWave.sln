@@ -2,7 +2,7 @@
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewWave", "NewWave\NewWave.csproj", "{68853BCD-F111-49CB-8355-70D76E1641DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewWave", "src\NewWave\NewWave.csproj", "{68853BCD-F111-49CB-8355-70D76E1641DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
