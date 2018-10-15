@@ -30,7 +30,7 @@ jobs:
           name: Checking Hashes
           command: |
             dotnet --version > DOTNET_SDK_VERSION
-            ls -al $HOME/.nuget/packages > NUGET_PACKAGES
+            grep PackageReference **/*.csproj > NUGET_PACKAGES
       - restore_cache:
           keys:
             - nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGES" }}
@@ -39,7 +39,6 @@ jobs:
           name: Restoring NuGet Packages
           command: |
             dotnet restore
-            ls -al $HOME/.nuget/packages > NUGET_PACKAGES
       - save_cache:
           key: nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGES" }}
           paths:
