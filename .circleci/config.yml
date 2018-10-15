@@ -17,9 +17,9 @@ jobs:
       - run:
           name: Resolving Dependencies
           command: |
-            sudo add-apt-repository universe
-            sudo apt update
-            sudo apt install clang libcurl4-openssl-dev zlib1g-dev libkrb5-dev
+            add-apt-repository universe
+            apt update
+            apt install clang libcurl4-openssl-dev zlib1g-dev libkrb5-dev
       - save_cache:
           key: apt-v1-arch-{{ arch }}
           paths:
