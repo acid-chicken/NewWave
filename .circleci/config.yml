@@ -1,0 +1,55 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+        environment:
+          CppCompilerAndLinker: clang
+          DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+          NUGET_XMLDOC_MODE: skip
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - apt-v1-arch-{{ arch }}
+            - apt-v1-
+      - run:
+          name: Resolving Dependencies
+          command: |
+            sudo add-apt-repository universe
+            sudo apt update
+            sudo apt install clang libcurl4-openssl-dev zlib1g-dev libkrb5-dev
+      - save_cache:
+          key: apt-v1-arch-{{ arch }}
+          paths:
+            - /var/cache/apt
+      - run:
+          name: Checking Hashes
+          command: |
+            dotnet --version > DOTNET_SDK_VERSION
+            ls -al $HOME/.nuget/packages > NUGET_PACKAGES
+      - restore_cache:
+          keys:
+            - nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGES" }}
+            - nuget-v1-
+      - run:
+          name: Restoring NuGet Packages
+          command: |
+            dotnet restore
+            ls -al $HOME/.nuget/packages > NUGET_PACKAGES
+      - save_cache:
+          key: nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGES" }}
+          paths:
+            - $HOME/.nuget/packages
+      - run:
+          name: Building Project
+          command: |
+            dotnet publish -r linux-x64 -c Release -o dist --no-restore
+      - store_artifacts:
+          path: dist
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
