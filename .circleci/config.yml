@@ -21,7 +21,7 @@ jobs:
             apt install -y software-properties-common
             add-apt-repository universe
             apt update
-            apt install -y clang libcurl4-openssl-dev zlib1g-dev libkrb5-dev
+            apt install -y zsh clang libcurl4-openssl-dev zlib1g-dev libkrb5-dev
       - save_cache:
           key: apt-v1-arch-{{ arch }}
           paths:
@@ -30,7 +30,7 @@ jobs:
           name: Checking Hashes
           command: |
             dotnet --version > DOTNET_SDK_VERSION
-            grep PackageReference **/*.csproj > NUGET_PACKAGES
+            zsh -c 'grep PackageReference **/*.csproj' > NUGET_PACKAGES
       - restore_cache:
           keys:
             - nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGES" }}
