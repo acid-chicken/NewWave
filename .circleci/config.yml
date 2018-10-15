@@ -17,6 +17,8 @@ jobs:
       - run:
           name: Resolving Dependencies
           command: |
+            apt update
+            apt install software-properties-common
             add-apt-repository universe
             apt update
             apt install clang libcurl4-openssl-dev zlib1g-dev libkrb5-dev
