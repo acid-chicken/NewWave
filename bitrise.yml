@@ -13,22 +13,6 @@ workflows:
     - activate-ssh-key:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone: {}
-    - apt-get-install:
-        inputs:
-        - packages: software-properties-common
-        title: APT Install software-properties-common
-    - script:
-        inputs:
-        - content: |
-            #!/usr/bin/env bash
-            set -e
-            set -x
-            add-apt-repository universe
-        title: Add APT Universe Repository
-    - apt-get-install:
-        inputs:
-        - packages: dotnet-sdk-2.1 zsh clang libcurl4-openssl-dev zlib1g-dev libkrb5-dev
-        title: APT Install SDKs
     - script:
         title: Build Projects
         inputs:
