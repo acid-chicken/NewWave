@@ -33,11 +33,11 @@ jobs:
       - run:
           name: Checking Hashes
           command: |
-            ls -alR $HOME/.nuget/packages > NUGET_PACKAGES
+            ls -alR ~/.nuget/packages > NUGET_PACKAGES
       - save_cache:
           key: nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGE_REFERENCES" }}-{{ checksum "NUGET_PACKAGES" }}
           paths:
-            - $HOME/.nuget/packages
+            - ~/.nuget/packages
       - store_artifacts:
           path: src/NewWave/dist
 workflows:
