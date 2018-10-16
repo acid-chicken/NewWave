@@ -30,10 +30,10 @@ jobs:
           name: Checking Hashes
           command: |
             dotnet --version > DOTNET_SDK_VERSION
-            zsh -c 'grep PackageReference **/*.csproj' > NUGET_PACKAGES
+            zsh -c 'grep PackageReference **/*.csproj' > NUGET_PACKAGE_REFERENCES
       - restore_cache:
           keys:
-            - nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGES" }}
+            - nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGE_REFERENCES" }}-
             - nuget-v1-
       - run:
           name: Restoring NuGet Packages
@@ -43,8 +43,12 @@ jobs:
           name: Building Project
           command: |
             dotnet publish -r linux-x64 -c Release -o dist
+      - run:
+          name: Checking Hashes
+          command: |
+            ls -alR $HOME/.nuget/packages > NUGET_PACKAGES
       - save_cache:
-          key: nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGES" }}
+          key: nuget-v1-arch-{{ arch }}-env-{{ .Environment.variableName }}-sdk-{{ checksum "DOTNET_SDK_VERSION" }}-nuget-{{ checksum "NUGET_PACKAGE_REFERENCES" }}-{{ checksum "NUGET_PACKAGES" }}
           paths:
             - $HOME/.nuget/packages
       - store_artifacts:
