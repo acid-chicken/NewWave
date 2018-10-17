@@ -29,7 +29,7 @@ jobs:
       - run:
           name: Building Project
           command: |
-            dotnet publish -r linux-x64 -c Release -o dist
+            dotnet publish -r linux-x64 -c Release -o dist --version-suffix "linux-$CIRCLE_BUILD_NUM"
       - run:
           name: Checking Hashes
           command: |
