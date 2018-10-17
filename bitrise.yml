@@ -23,5 +23,5 @@ workflows:
             export CppCompilerAndLinker=clang
             export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
             export NUGET_XMLDOC_MODE=skip
-            dotnet publish -r osx-x64 -c Release -o $BITRISE_DEPLOY_DIR
+            dotnet publish -r osx-x64 -c Release -o $BITRISE_DEPLOY_DIR --version-suffix "osx-$BITRISE_BUILD_NUMBER"
     - deploy-to-bitrise-io: {}
