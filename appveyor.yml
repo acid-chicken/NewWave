@@ -16,7 +16,7 @@ environment:
   NUGET_XMLDOC_MODE: skip
   NUGET_PACKAGES: 'C:\projects\newwave\packages'
 cache:
-  - 'packages -> **\*.csproj'
+  - 'packages'
 build_script:
 - pwsh: dotnet publish -c Release -r win-x64 -o dist
 artifacts:
