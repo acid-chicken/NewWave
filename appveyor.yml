@@ -14,8 +14,9 @@ environment:
   CppCompilerAndLinker: clang
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   NUGET_XMLDOC_MODE: skip
+  NUGET_PACKAGES: 'C:\projects\newwave\packages'
 cache:
-  - '**\*.nupkg -> **\*.csproj'
+  - 'packages -> **\*.csproj'
 build_script:
 - pwsh: dotnet publish -c Release -r win-x64 -o dist
 artifacts:
