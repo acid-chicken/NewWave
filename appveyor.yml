@@ -17,4 +17,4 @@ environment:
 build_script:
 - pwsh: dotnet publish -c Release -r win-x64 -o dist
 artifacts:
-- path: 'C:\projects\newwave\src\NewWave\dist\'
+- path: 'src\NewWave\dist\'
