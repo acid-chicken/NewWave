@@ -1,6 +1,6 @@
 FROM microsoft/dotnet:2.1-sdk-bionic
 
-MAINTAINER Acid Chicken (硫酸鶏) <root@acid-chicken.com>
+LABEL maintainer="Acid Chicken (硫酸鶏) <root@acid-chicken.com>"
 
 RUN apt update \
  && apt upgrade -y \
