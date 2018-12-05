@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk-bionic
+FROM microsoft/dotnet:2.2-sdk-bionic
 
 LABEL maintainer="Acid Chicken (硫酸鶏) <root@acid-chicken.com>"
 
